@@ -41,21 +41,44 @@ public class InventoryServlet extends HttpServlet {
         }
 
         String qtyStr = request.getParameter("quantity");
+        String action = request.getParameter("action"); // "sale", "add", or "remove"
+
         if (qtyStr != null && !qtyStr.isEmpty()) {
-            int qty = Integer.parseInt(qtyStr);
-            
-            // Update the static product
-            p.setCurrentStock(p.getCurrentStock() - qty);
-            
-            boolean lowStock = p.getCurrentStock() <= p.getThreshold();
+            try {
+                int qty = Integer.parseInt(qtyStr);
 
-            request.setAttribute("updatedProduct", p);
-            request.setAttribute("isLow", lowStock);
+                if (action.equals("sale")) {
+                    // Logic for a Sale (Goes to confirmation)
+                    if (qty > 0 && qty <= p.getCurrentStock()) {
+                        p.setCurrentStock(p.getCurrentStock() - qty);
+                        boolean lowStock = p.getCurrentStock() <= p.getThreshold();
+                        request.setAttribute("updatedProduct", p);
+                        request.setAttribute("isLow", lowStock);
+                        request.getRequestDispatcher("confirmation.jsp").forward(request, response);
+                    } else {
+                        doGet(request, response);
+                    }
+                } 
+                else if (action.equals("add")) {
+                    // Check for positive integer to prevent "adding" negative numbers
+                    if (qty > 0) {
+                        p.setCurrentStock(p.getCurrentStock() + qty);
+                    }
+                    doGet(request, response);
+                } 
+                else if (action.equals("remove")) {
+                    // Check if the amount is positive AND we have enough to remove
+                    if (qty > 0 && qty <= p.getCurrentStock()) {
+                        p.setCurrentStock(p.getCurrentStock() - qty);
+                    }
+                    // If invalid, we just refresh via doGet, and no change happens to 'p'
+                    doGet(request, response);
+                }
 
-            RequestDispatcher rd = request.getRequestDispatcher("confirmation.jsp");
-            rd.forward(request, response);
+            } catch (NumberFormatException e) {
+                doGet(request, response);
+            }
         } else {
-            // If no quantity, just go back to the inventory view
             doGet(request, response);
         }
     }
