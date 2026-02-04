@@ -59,6 +59,18 @@ The system’s functionality and actor interactions are documented using UML use
   - Produces inventory and sales reports
   - Summarizes stock levels and sales trends
   - Supports extended views such as low-stock alerts
+ 
+## Currently Implemented
+
+The current prototype focuses on demonstrating core system functionality and required web technologies for the lab:
+
+- Login page with **employee authentication**
+- Session handling for logged-in users
+- Recording sales for inventory items
+- Updating stock levels by:
+  - Removing stock when a sale is recorded
+  - Adding stock manually
+- Inventory operations are demonstrated using **one static product**, sufficient for validating system logic and servlet–JSP communication in the prototype phase
 
 ## Features to Be Added & Known Issues
 
