@@ -1,0 +1,302 @@
+# ============================================================
+# IMS - Kubernetes Deployment + Internal Services File
+# Images: waafiqmaz/waafiqims
+# KubeMQ gRPC ClusterIP: 34.118.228.156:50000
+# ============================================================
+
+# -----------------------------------------------
+# ACCOUNT DB - PVC
+# -----------------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: accountdb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
+---
+# ACCOUNT DB - Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: accountdb
+spec:
+  selector:
+    app: accountdb
+  ports:
+    - port: 3306
+      targetPort: 3306
+---
+# ACCOUNT DB - Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accountdb
+spec:
+  selector:
+    matchLabels:
+      app: accountdb
+  template:
+    metadata:
+      labels:
+        app: accountdb
+    spec:
+      containers:
+        - name: accountdb
+          image: waafiqmaz/waafiqims:accountdb
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: storage
+              mountPath: /data/accountdb
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: accountdb-pvc
+---
+# -----------------------------------------------
+# INVENTORY DB - PVC
+# -----------------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: inventorydb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
+---
+# INVENTORY DB - Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventorydb
+spec:
+  selector:
+    app: inventorydb
+  ports:
+    - port: 3306
+      targetPort: 3306
+---
+# INVENTORY DB - Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventorydb
+spec:
+  selector:
+    matchLabels:
+      app: inventorydb
+  template:
+    metadata:
+      labels:
+        app: inventorydb
+    spec:
+      containers:
+        - name: inventorydb
+          image: waafiqmaz/waafiqims:inventorydb
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: storage
+              mountPath: /data/inventorydb
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: inventorydb-pvc
+---
+# -----------------------------------------------
+# LOW STOCK DB - PVC
+# -----------------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lowstockdb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
+---
+# LOW STOCK DB - Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: lowstockdb
+spec:
+  selector:
+    app: lowstockdb
+  ports:
+    - port: 3306
+      targetPort: 3306
+---
+# LOW STOCK DB - Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lowstockdb
+spec:
+  selector:
+    matchLabels:
+      app: lowstockdb
+  template:
+    metadata:
+      labels:
+        app: lowstockdb
+    spec:
+      containers:
+        - name: lowstockdb
+          image: waafiqmaz/waafiqims:lowstockdb
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: storage
+              mountPath: /data/lowstockdb
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: lowstockdb-pvc
+---
+# -----------------------------------------------
+# INVENTORY SERVICE - Deployment
+# -----------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventoryservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventoryservice
+  template:
+    metadata:
+      labels:
+        app: inventoryservice
+    spec:
+      containers:
+        - name: inventoryservice
+          image: waafiqmaz/waafiqims:inventoryservice-v2
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_URL
+              value: inventorydb:3306
+            - name: kubeMQAddress
+              value: 34.118.228.156:50000
+            - name: lowStockService
+              value: lowstockservice:80
+          imagePullPolicy: Always
+---
+# -----------------------------------------------
+# LOW STOCK SERVICE - Deployment
+# -----------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lowstockservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lowstockservice
+  template:
+    metadata:
+      labels:
+        app: lowstockservice
+    spec:
+      containers:
+        - name: lowstockservice
+          image: waafiqmaz/waafiqims:lowstockservice-v2
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_URL
+              value: lowstockdb:3306
+            - name: kubeMQAddress
+              value: 34.118.228.156:50000
+            - name: inventoryService
+              value: inventoryservice:80
+          imagePullPolicy: Always
+---
+# -----------------------------------------------
+# FRONTEND SERVICE - Deployment
+# -----------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: waafiqmaz/waafiqims:frontendservice-v6
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_URL
+              value: accountdb:3306
+            - name: kubeMQAddress
+              value: 34.118.228.156:50000
+            - name: lowStockService
+              value: lowstockservice:80
+            - name: inventoryService
+              value: inventoryservice
+          imagePullPolicy: Always
+---
+# -----------------------------------------------
+# INVENTORY SERVICE - ClusterIP Service
+# -----------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventoryservice
+spec:
+  selector:
+    app: inventoryservice
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+# -----------------------------------------------
+# LOW STOCK SERVICE - ClusterIP Service
+# -----------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: lowstockservice
+spec:
+  selector:
+    app: lowstockservice
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+# -----------------------------------------------
+# FRONTEND - LoadBalancer Service (public IP)
+# -----------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    app: frontend
+  ports:
+    - port: 80
+      targetPort: 8080

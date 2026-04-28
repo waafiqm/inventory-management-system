@@ -1,0 +1,10 @@
+/home/student/Documents/LAB5ULTIMATE/Lab5/FrontendService/src/main/java/frontend/frontendservice/gui/UpdateStockServlet.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/FrontendService/src/main/java/frontend/frontendservice/gui/RecordSaleServlet.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/FrontendService/src/main/java/frontend/frontendservice/helper/UserInfo.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/FrontendService/src/main/java/frontend/frontendservice/gui/LogoutServlet.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/FrontendService/src/main/java/frontend/frontendservice/gui/LoginServlet.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/FrontendService/src/main/java/frontend/frontendservice/helper/JWTUtil.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/FrontendService/src/main/java/frontend/frontendservice/persistence/DBConnection.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/FrontendService/src/main/java/frontend/frontendservice/helper/APIClient.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/FrontendService/src/main/java/frontend/frontendservice/gui/ViewInventoryServlet.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/FrontendService/src/main/java/frontend/frontendservice/persistence/User_CRUD.java

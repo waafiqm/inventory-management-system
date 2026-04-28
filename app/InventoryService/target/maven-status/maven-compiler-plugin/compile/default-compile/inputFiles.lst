@@ -1,0 +1,11 @@
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/endpoint/InventoryResource.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/business/UpdateStockController.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/business/InventoryService.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/endpoint/JWTAuthFilter.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/persistence/Product_CRUD.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/persistence/Sale_CRUD.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/business/Messaging.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/helper/SaleInfo.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/helper/ProductInfo.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/business/RecordSaleController.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/InventoryService/src/main/java/inventory/inventoryservice/persistence/DBConnection.java

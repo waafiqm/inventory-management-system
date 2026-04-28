@@ -1,0 +1,10 @@
+/home/student/Documents/LAB5ULTIMATE/Lab5/LowStockService/src/main/java/lowstock/lowstockservice/endpoint/JWTAuthFilter.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/LowStockService/src/main/java/lowstock/lowstockservice/endpoint/LowStockResource.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/LowStockService/src/main/java/lowstock/lowstockservice/persistence/Product_CRUD.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/LowStockService/src/main/java/lowstock/lowstockservice/business/LowStockController.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/LowStockService/src/main/java/lowstock/lowstockservice/business/LowStockSyncService.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/LowStockService/src/main/java/lowstock/lowstockservice/persistence/DBConnection.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/LowStockService/src/main/java/lowstock/lowstockservice/business/Messaging.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/LowStockService/src/main/java/lowstock/lowstockservice/business/LowStockService.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/LowStockService/src/main/java/lowstock/lowstockservice/endpoint/AppStartupListener.java
+/home/student/Documents/LAB5ULTIMATE/Lab5/LowStockService/src/main/java/lowstock/lowstockservice/helper/ProductInfo.java

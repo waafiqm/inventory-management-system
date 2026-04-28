@@ -1,0 +1,10 @@
+frontend/frontendservice/persistence/DBConnection.class
+frontend/frontendservice/persistence/User_CRUD.class
+frontend/frontendservice/gui/LogoutServlet.class
+frontend/frontendservice/helper/APIClient.class
+frontend/frontendservice/gui/ViewInventoryServlet.class
+frontend/frontendservice/helper/UserInfo.class
+frontend/frontendservice/gui/RecordSaleServlet.class
+frontend/frontendservice/gui/LoginServlet.class
+frontend/frontendservice/helper/JWTUtil.class
+frontend/frontendservice/gui/UpdateStockServlet.class

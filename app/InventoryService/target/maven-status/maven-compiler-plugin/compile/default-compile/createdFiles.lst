@@ -1,0 +1,11 @@
+inventory/inventoryservice/business/RecordSaleController.class
+inventory/inventoryservice/persistence/Sale_CRUD.class
+inventory/inventoryservice/business/Messaging.class
+inventory/inventoryservice/business/InventoryService.class
+inventory/inventoryservice/endpoint/InventoryResource.class
+inventory/inventoryservice/persistence/DBConnection.class
+inventory/inventoryservice/persistence/Product_CRUD.class
+inventory/inventoryservice/helper/SaleInfo.class
+inventory/inventoryservice/business/UpdateStockController.class
+inventory/inventoryservice/endpoint/JWTAuthFilter.class
+inventory/inventoryservice/helper/ProductInfo.class
